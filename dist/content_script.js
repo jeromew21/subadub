@@ -23320,7 +23320,7 @@ const chineseDict = {日: 'rì',
         res += ch;
       }
     }
-    return res;
+    return text + " <br>" + res;
   }
 
   function vttTextToSimple(s, netflixRTLFix) {
@@ -23330,6 +23330,8 @@ const chineseDict = {日: 'rì',
     simpleText = simpleText.replace(TAG_REGEX, function (match, p1) {
       return ['i', 'u', 'b'].includes(p1.toLowerCase()) ? match : '';
     });
+
+    simpleText = customTextTransform(simpleText);
 
     if (netflixRTLFix) {
       // For each line, if it starts with lrm or rlm escape, wrap in LRE/RLE/PDF pair.
@@ -23624,7 +23626,7 @@ const chineseDict = {日: 'rì',
         for (const cue of track.activeCues) {
           const cueElem = document.createElement('div');
           cueElem.style.cssText = 'background: rgba(0,0,0,0.8); white-space: pre-wrap; padding: 0.2em 0.3em; margin: 10px auto; width: fit-content; width: -moz-fit-content; pointer-events: auto';
-          cueElem.innerHTML = vttTextToSimple(customTextTransform(cue.text), true); // may contain simple tags like <i> etc.
+          cueElem.innerHTML = vttTextToSimple(cue.text, true); // may contain simple tags like <i> etc.
           customSubsElem.appendChild(cueElem);
         }
       }, false);
